@@ -19,14 +19,19 @@ export function factoryOnMessage(board: globalThis.Ref<Array<number>>, searchOpp
         ws.handler?.send('start game');
       } else {
         ws.handler?.send('recover game');
-        ws.handler?.send(JSON.stringify({ board: board.value, player: player.value, cursor: cursor.value, canPlay: !canPlay.value }))
+
       }
 
       return;
     }
+    if (e.data === 'ask for game') {
+      ws.handler?.send(JSON.stringify({ board: board.value, player: player.value, cursor: cursor.value, canPlay: !canPlay.value }))
+    }
+
     if (e.data === 'recover game') {
       searchOpponent.value = false;
       player.value = 0
+      ws.handler?.send('ask for game');
       return;
     }
     if (e.data === 'start game') {
