@@ -52,6 +52,18 @@ func CH_WS_id(db *sql.DB, wsmap *utils.WSMap) gin.HandlerFunc {
 			(*wsmap)[paramId] = &ws
 		} else {
 			ws = *(*wsmap)[paramId]
+			if ws.Count >= 2 {
+
+				tempWs := melody.New()
+				tempWs.HandleConnect(func(s *melody.Session) {
+
+					tempWs.CloseWithMsg([]byte("room is full"))
+
+				})
+
+				tempWs.HandleRequest(c.Writer, c.Request)
+
+			}
 		}
 
 		ws.M.HandleConnect(utils.WsConnect(&ws, paramId))
