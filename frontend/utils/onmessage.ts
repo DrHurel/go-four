@@ -6,7 +6,15 @@ import { Factory } from "./type";
 /**
  * The `factoryOnMessage` function is a TypeScript factory function that returns an event listener
  * function for handling WebSocket messages in a game.
- * @param options - The `options` parameter is an object that contains the following properties:
+ * @param {OnMessageOptions} options - The `options` parameter is an object that contains the following properties:
+ * @param {Ref<number>} options.player - The `player` property is a ref that contains the player number.
+ * @param {Ref<boolean>} options.searchOpponent - The `searchOpponent` property is a ref that contains a boolean value that indicates whether the player is searching for an opponent.
+ * @param {Ref<boolean>} options.canPlay - The `canPlay` property is a ref that contains a boolean value that indicates whether the player can play.
+ * @param {Ref<number>} options.cursor - The `cursor` property is a ref that contains the cursor position.
+ * @param {Ref<number[][]>} options.board - The `board` property is a ref that contains the board.
+ * @param {WebSocketHandler} options.ws - The `ws` property is a WebSocketHandler object.
+ * @param {Function} options.addToCollum - The `addToCollum` property is a function that takes an object as an argument and returns void.
+ * 
  * @returns a callback function that takes an event object as an argument.
  */
 export const factoryOnMessage: Factory<OnMessageOptions, { data: string; }> = (options) => {

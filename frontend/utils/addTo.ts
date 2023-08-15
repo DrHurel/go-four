@@ -3,15 +3,13 @@ import { Factory } from "./type";
 import { AddToOptions, optionRes } from "./interface";
 
 
+
 /**
- * The `factoryADDTo` function takes in a board and a player, and returns an asynchronous function that
- * adds a value to the board at a specific position and checks if it results in a winning move.
- * @param board - The `board` parameter is a reference to an array of numbers representing the game
- * board. It is used to keep track of the state of the game.
- * @param player - The `player` parameter is a reference to a number that represents the current
- * player.
- * @returns an asynchronous function that takes two parameters (a and b) and performs some operations
- * on the board.
+ * This TypeScript function adds a value to a game board and checks if it results in a winning move.
+ * @param options - An object containing the following properties:
+ * - `board` - The game board.
+ * - `player` - The player.
+ * @returns a function that takes an object of type `optionRes` as an argument.
  */
 export const factoryADDTo: Factory<AddToOptions, optionRes> = (options) => {
 

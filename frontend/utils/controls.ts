@@ -7,6 +7,12 @@ import { Factory } from "./type"
  * The `factoryCallEvent` function is a factory function that returns a `callEvent` function, which
  * handles keyboard events for a game and sends corresponding actions to a WebSocket server.
  * @param options - The `options` parameter is an object that contains the following properties:
+ * @param options.ws - The `ws` property is a WebSocket object.
+ * @param options.cursor - The `cursor` property is a ref object that contains the current cursor position.
+ * @param options.canPlay - The `canPlay` property is a ref object that contains the current state of the game.
+ * @param options.addToCollum - The `addToCollum` property is a function that adds a new piece to the game board.
+ * @param options.player - The `player` property is a ref object that contains the current player.
+ * 
  * @returns The function `callEvent` is being returned.
  */
 export const factoryCallEvent: Factory<CallEventOptions, any> = (options) => {
