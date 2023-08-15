@@ -1,12 +1,7 @@
-import { Interface } from "readline";
+
 import { Factory } from "./type";
+import { AddToOptions, optionRes } from "./interface";
 
-interface AddToOptions {
-  board: globalThis.Ref<number[]>;
-  player: globalThis.Ref<number>;
-}
-
-interface optionRes { a: number, b: number }
 
 /**
  * The `factoryADDTo` function takes in a board and a player, and returns an asynchronous function that

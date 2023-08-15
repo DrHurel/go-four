@@ -1,15 +1,6 @@
 import { Action } from "./enum";
+import { OnMessageOptions } from "./interface";
 import { Factory, FactoryReturn } from "./type";
-
-interface OnMessageOptions {
-  board: globalThis.Ref<Array<number>>;
-  searchOpponent: globalThis.Ref<boolean>;
-  ws: { handler: WebSocket | null };
-  canPlay: globalThis.Ref<boolean>;
-  player: globalThis.Ref<number>;
-  cursor: globalThis.Ref<number>;
-  addToCollum: (o: { a: number, b: number }) => void;
-}
 
 
 /**

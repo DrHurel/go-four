@@ -1,19 +1,8 @@
 import { Controls, Action } from "./enum"
+import { CallEventOptions } from "./interface"
 import { Factory } from "./type"
 
-interface optionATC {
-  a: number,
-  b: number
-}
 
-interface CallEventOptions {
-  ws: { handler: WebSocket | null }
-  cursor: globalThis.Ref<number>
-  canPlay: globalThis.Ref<boolean>
-  addToCollum: (o: optionATC) => void
-  player: globalThis.Ref<number>
-
-}
 /**
  * The `factoryCallEvent` function is a factory function that returns a `callEvent` function, which
  * handles keyboard events for a game and sends corresponding actions to a WebSocket server.
