@@ -3,7 +3,7 @@
 
     <NuxtLink to="/">menu</NuxtLink>
     <div>decorator</div>
-    <button @click="() => addToCollum(cursor, player)">add to Row</button>
+    <button @click="() => addToCollum({ a: cursor, b: player })">add to Row</button>
     <input id="cursor" type="number" min=0 max=6 step=1 v-model="cursor">
     <input id="player" type="range" min="-1" max="1" name="" step="2" v-model="player">
     <button>restart</button>
@@ -20,7 +20,6 @@
     <section class="board">
       <div class="cursor">
         <span :style="{
-              //gridColumn: `${(cursor + 1)}/${(cursor + 2)}`
               transform: `translateX(calc(${cursor} * 100%))`
             }">
           <img v-bind:src="player == -1 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
@@ -28,7 +27,7 @@
       </div>
       <img class="front-board" src="/images/board-layer-white-large.svg" alt="" />
       <div class="inner-board">
-        <img v-for="(item, index) in  board " :class="{ clean: (item == 0) }"
+        <img v-for="(item, _) in  board " :class="{ clean: (item == 0) }"
           v-bind:src="(item == -1) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
       </div>
       <img class="back-board" src="/images/board-layer-black-large.svg" alt="" />
@@ -62,8 +61,8 @@ const canPlay = ref(true)
 const route = useRoute();
 
 // functions
-const addToCollum: (a: number, b: number) => void = factoryADDTo(board, canPlay, player)
-const callEvent: (e: any) => void = factoryCallEvent(ws, cursor, canPlay, addToCollum, player)
+const addToCollum = factoryADDTo({ board, player })
+const callEvent = factoryCallEvent({ ws, cursor, canPlay, addToCollum, player })
 
 onMounted(() => {
 
@@ -77,7 +76,7 @@ onMounted(() => {
     ws.handler?.send('join room');
   };
 
-  ws.handler.onmessage = factoryOnMessage(board, searchOpponent, ws, canPlay, player, cursor, addToCollum)
+  ws.handler.onmessage = factoryOnMessage({ board, searchOpponent, ws, canPlay, player, cursor, addToCollum })
 
   ws.handler.onclose = (e) => {
     console.log(e);

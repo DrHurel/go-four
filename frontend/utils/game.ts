@@ -1,9 +1,17 @@
+import { Direction } from "./enum"
+
 
 /**
- *  Check if the move is winning the game
- * 
- * @param board 
- * @param play 
+ * The function checks if a move is a winning move in a game by checking for a sequence of 4 dots of
+ * the same type in a row, column, or diagonal.
+ * @param {number} type - The type parameter represents the type of player making the move. It is a
+ * number that can be used to differentiate between different players (e.g., player 1 and player 2).
+ * @param board - The `board` parameter is an object with a property `value` which is an array of
+ * numbers. This array represents the game board, where each number represents a cell on the board. The
+ * `type` parameter is a number that represents the player's type (e.g., 1 for player
+ * @param play - The `play` parameter represents the current move being made on the board. It is an
+ * object with two properties: `x` and `y`, which represent the coordinates of the move on the board.
+ * @returns a boolean value, either true or false.
  */
 export function isWinningMove(type: number, board: { value: Array<number> }, play: { x: number, y: number }): boolean {
 
@@ -33,28 +41,24 @@ export function isWinningMove(type: number, board: { value: Array<number> }, pla
   return false
 }
 
-enum Direction {
-  DOWN_LEFT,
-  DOWN,
-  DOWN_RIGHT,
-  LEFT,
-  UP_RIGHT,
-  UP, //n'est pas utilisé
-  UP_LEFT,
-  RIGHT
-}
 
 /**
- * 
- * Check if the next dot in the direction is from the same player
- * If it is, return the dot
- * If not, return null
- * 
- * @param type 
- * @param direction 
- * @param dot 
- * @param board 
+ * The function `checkNextDot` checks the next dot in a given direction on a board and returns its
+ * coordinates if it matches a specified type, or null if it does not.
+ * @param {number} type - The `type` parameter represents the type of dot that we are checking for. It
+ * is a number value.
+ * @param {Direction} direction - The direction parameter is an enum type called Direction. It
+ * represents the direction in which to check for the next dot. The possible values for Direction are
+ * UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, and DOWN_RIGHT.
+ * @param dot - The `dot` parameter is an object with properties `x` and `y`, representing the
+ * coordinates of a dot on the board.
+ * @param board - The `board` parameter is an object with a property `value` which is an array of
+ * numbers.
+ * @returns The function `checkNextDot` returns either an object with `x` and `y` properties
+ * representing the coordinates of the next dot, or `null` if there is no next dot in the specified
+ * direction.
  */
+
 function checkNextDot(type: number, direction: Direction, dot: { x: number, y: number }, board: { value: Array<number> }): ({ x: number, y: number } | null) {
 
   switch (direction) {
