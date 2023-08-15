@@ -1,10 +1,12 @@
 # TODO
 
-- ensure same user don't trigger game start by rejoining
+
 - set up logic for game end
+  - [x] game won by a player
+  - [] null game
 - set up logic for playing onlines  
-  - ensure sync between clients and players switching
-  - find a way to resync if a client reconnects/reloads
+  - [x] ensure sync between clients and players switching
+  - [x] find a way to resync if a client reconnects/reloads
 - set up logic for playing with bots
 
 
