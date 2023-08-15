@@ -1,6 +1,6 @@
 import { Action } from "./enum";
 import { OnMessageOptions } from "./interface";
-import { Factory, FactoryReturn } from "./type";
+import { Factory } from "./type";
 
 
 /**
