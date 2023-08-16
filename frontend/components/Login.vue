@@ -37,3 +37,16 @@ async function submit() {
 }
 
 </script>
+
+<style scoped lang="scss">
+form {
+  background-color: var(--purple);
+  aspect-ratio: 1.1/1;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+</style>

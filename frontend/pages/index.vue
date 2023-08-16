@@ -1,27 +1,8 @@
 <template>
   <div class="container">
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <nuxt-link to="/">Home</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/login">Login</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/register">Register</nuxt-link>
-          </li>
-          <li>
-            <button @click="Logout">
-              Logout
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <Navbar />
     <main>
-
+      <img src="images/logo.svg" alt="logo">
 
 
 
@@ -32,7 +13,10 @@
         <button>Play Offline</button>
       </form>
       <form>
-        <button>Play Bot</button>
+        <button class="bot">Play Bot</button>
+      </form>
+      <form>
+        <button class="rules">Rules</button>
       </form>
 
     </main>
@@ -64,45 +48,32 @@ async function playOnline() {
   router.push(`/connect-four/online/${jsonRes.room}`)
 }
 
-function Logout() {
-  fetch('http://localhost:8080/api/logout', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include'
-  });
-}
+
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-
-
+  background-color: var(--dark-purple);
+  align-items: center;
+  justify-content: center;
 }
 
-header {
-  width: 100%;
-}
 
-ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  height: 20%;
-
-}
 
 main {
+  background-color: var(--purple);
   display: flex;
-  height: 80%;
-  width: 100%;
+  flex-direction: column;
+  width: 30%;
+  border-radius: 10%;
+  border: 3px solid black;
+  box-shadow: 0px 10px 0px 0px #000;
+  aspect-ratio: 1.1/1;
   align-items: center;
   justify-content: center;
   gap: 1rem;
@@ -111,10 +82,14 @@ main {
 button {
 
   border: none;
-
+  border-radius: 1.25rem;
+  border: 3px solid var(--black, #000);
+  background: var(--yellow, #FFCE67);
+  box-shadow: 0px 10px 0px 0px #000;
   padding: 1rem;
   border-radius: 1rem;
-  background-color: #f0f0f0;
+  width: 85%;
+
   transition: all 0.5s ease-in-out;
   cursor: pointer;
 
@@ -123,8 +98,21 @@ button {
   }
 
 
+  &.rules {
+    background-color: white;
+  }
 
+  &.bot {
+    background-color: var(--pink);
+  }
 
+}
+
+form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 </style>

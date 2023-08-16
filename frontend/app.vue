@@ -3,6 +3,14 @@
 </template>
 
 <style lang="scss">
+:root {
+
+  --dark-purple: #5C2DD5;
+  --purple: #7945FF;
+  --pink: #FD6687;
+  --yellow: #FFCE67;
+}
+
 body {
   display: flex;
   flex-direction: column;
