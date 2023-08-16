@@ -1,4 +1,5 @@
 import { promises } from "dns";
+import { PlayImpact } from "./enum";
 
 export interface AddToOptions {
   board: globalThis.Ref<number[]>;
@@ -12,14 +13,14 @@ export interface CallEventOptions {
   ws: { handler: WebSocket | null }
   cursor: globalThis.Ref<number>
   canPlay: globalThis.Ref<boolean>
-  addToCollum: (o: optionRes) => boolean | Promise<boolean>
+  addToCollum: (o: optionRes) => PlayImpact | Promise<PlayImpact>
   player: globalThis.Ref<number>
 
 }
 
 export interface CallEventOfflineOptions {
   cursor: globalThis.Ref<number>
-  addToCollum: (o: optionRes) => boolean | Promise<boolean>
+  addToCollum: (o: optionRes) => PlayImpact | Promise<PlayImpact>
   player: globalThis.Ref<number>
 
 }

@@ -26,3 +26,9 @@ export enum Direction {
   UP_LEFT,
   RIGHT
 }
+
+export enum PlayImpact {
+  WIN,
+  NONE,
+  UNAUTHORIZED
+}

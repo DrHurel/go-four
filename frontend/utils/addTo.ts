@@ -1,6 +1,7 @@
 
 import { Factory } from "./type";
 import { AddToOptions, optionRes } from "./interface";
+import { PlayImpact } from "./enum";
 
 
 
@@ -11,7 +12,7 @@ import { AddToOptions, optionRes } from "./interface";
  * - `player` - The player.
  * @returns a function that takes an object of type `optionRes` as an argument.
  */
-export const factoryADDTo: Factory<AddToOptions, optionRes, boolean> = (options) => {
+export const factoryADDTo: Factory<AddToOptions, optionRes, PlayImpact> = (options) => {
 
   const { board, player } = options;
 
@@ -26,7 +27,7 @@ export const factoryADDTo: Factory<AddToOptions, optionRes, boolean> = (options)
 
     if (row == 0 && board.value[a + row * 7] != 0) {
 
-      return false
+      return PlayImpact.UNAUTHORIZED
     }
 
 
@@ -37,11 +38,11 @@ export const factoryADDTo: Factory<AddToOptions, optionRes, boolean> = (options)
     if (test) {
       console.log("le joueur" + player.value + " a gagné " + test)
       console.log(a, row, board.value[a + row * 7])
+      return PlayImpact.WIN
     }
 
 
 
-    return true
-
+    return PlayImpact.NONE
   })
 }

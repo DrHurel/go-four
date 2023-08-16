@@ -32,7 +32,7 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
         ws.handler?.send(Action.LEFT)
       }
       if (e.code == Controls.SPACE) {
-        if (canPlay.value) if (addToCollum({ a: cursor.value, b: player.value })) {
+        if (canPlay.value) if (addToCollum({ a: cursor.value, b: player.value }) != PlayImpact.UNAUTHORIZED) {
           canPlay.value = false
           player.value = - player.value
           ws.handler?.send(Action.SPACE)
@@ -63,8 +63,8 @@ export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void
       if (cursor.value > 0) cursor.value--
     }
     if (e.code == Controls.SPACE) {
-
-      if (addToCollum({ a: cursor.value, b: player.value })) {
+      const play = addToCollum({ a: cursor.value, b: player.value })
+      if (play != PlayImpact.UNAUTHORIZED) {
         player.value = - player.value
       }
 

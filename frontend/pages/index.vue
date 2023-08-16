@@ -9,7 +9,7 @@
       <form @submit.prevent="playOnline">
         <button>Play Online</button>
       </form>
-      <form action="">
+      <form @submit.prevent="playOffline">
         <button>Play Offline</button>
       </form>
       <form>
@@ -46,6 +46,12 @@ async function playOnline() {
   const jsonRes: any = await res.json();
 
   router.push(`/connect-four/online/${jsonRes.room}`)
+}
+
+async function playOffline() {
+
+
+  router.push(`/connect-four/offline`)
 }
 
 
