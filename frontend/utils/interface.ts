@@ -1,3 +1,5 @@
+import { promises } from "dns";
+
 export interface AddToOptions {
   board: globalThis.Ref<number[]>;
   player: globalThis.Ref<number>;
@@ -10,7 +12,14 @@ export interface CallEventOptions {
   ws: { handler: WebSocket | null }
   cursor: globalThis.Ref<number>
   canPlay: globalThis.Ref<boolean>
-  addToCollum: (o: optionRes) => void
+  addToCollum: (o: optionRes) => boolean | Promise<boolean>
+  player: globalThis.Ref<number>
+
+}
+
+export interface CallEventOfflineOptions {
+  cursor: globalThis.Ref<number>
+  addToCollum: (o: optionRes) => boolean | Promise<boolean>
   player: globalThis.Ref<number>
 
 }

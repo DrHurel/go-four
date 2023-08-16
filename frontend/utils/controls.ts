@@ -1,5 +1,5 @@
 import { Controls, Action } from "./enum"
-import { CallEventOptions } from "./interface"
+import { CallEventOfflineOptions, CallEventOptions } from "./interface"
 import { Factory } from "./type"
 
 
@@ -15,7 +15,7 @@ import { Factory } from "./type"
  * 
  * @returns The function `callEvent` is being returned.
  */
-export const factoryCallEvent: Factory<CallEventOptions, any> = (options) => {
+export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) => {
 
   const { ws, cursor, canPlay, addToCollum, player } = options
 
@@ -32,10 +32,11 @@ export const factoryCallEvent: Factory<CallEventOptions, any> = (options) => {
         ws.handler?.send(Action.LEFT)
       }
       if (e.code == Controls.SPACE) {
-        if (canPlay.value) addToCollum({ a: cursor.value, b: player.value })
-        canPlay.value = false
-        player.value = - player.value
-        ws.handler?.send(Action.SPACE)
+        if (canPlay.value) if (addToCollum({ a: cursor.value, b: player.value })) {
+          canPlay.value = false
+          player.value = - player.value
+          ws.handler?.send(Action.SPACE)
+        }
         return
       }
     }
@@ -46,3 +47,34 @@ export const factoryCallEvent: Factory<CallEventOptions, any> = (options) => {
 }
 
 
+export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void> = (options) => {
+
+  const { cursor, addToCollum, player } = options
+
+  return function callEvent(e) {
+
+
+    if (e.code == Controls.RIGHT) {
+      if (cursor.value < 6) cursor.value++
+
+      return
+    }
+    if (e.code == Controls.LEFT) {
+      if (cursor.value > 0) cursor.value--
+    }
+    if (e.code == Controls.SPACE) {
+
+      if (addToCollum({ a: cursor.value, b: player.value })) {
+        player.value = - player.value
+      }
+
+      return
+    }
+
+
+
+
+
+  }
+
+}

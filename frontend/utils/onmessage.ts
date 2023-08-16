@@ -17,7 +17,7 @@ import { Factory } from "./type";
  * 
  * @returns a callback function that takes an event object as an argument.
  */
-export const factoryOnMessage: Factory<OnMessageOptions, { data: string; }> = (options) => {
+export const factoryOnMessage: Factory<OnMessageOptions, { data: string; }, void> = (options) => {
 
   const { board, searchOpponent, ws, canPlay, player, cursor, addToCollum } = options
 

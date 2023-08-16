@@ -1,13 +1,5 @@
 <template>
-  <header>
-
-    <NuxtLink to="/">menu</NuxtLink>
-    <div>decorator</div>
-    <button @click="() => addToCollum({ a: cursor, b: player })">add to Row</button>
-    <input id="cursor" type="number" min=0 max=6 step=1 v-model="cursor">
-    <input id="player" type="range" min="-1" max="1" name="" step="2" v-model="player">
-    <button>restart</button>
-  </header>
+  <Navbar />
   <main v-if="searchOpponent">loading</main>
   <main v-else>
 
@@ -32,7 +24,7 @@
       </div>
       <img class="back-board" src="/images/board-layer-black-large.svg" alt="" />
     </section>
-    <section class=" P2">
+    <section class="P2">
       <div class="player">player 2</div>
       <div class="score">
         {{ score[1] }}
@@ -105,53 +97,62 @@ onBeforeUnmount(
 
 
 <style lang="scss" scoped>
-.front-board {
-
-  z-index: 2;
-  grid-row: 2/3;
-  grid-column: 1/2;
-  width: 100%;
-}
-
-.back-board {
-  grid-row: 2/3;
-  grid-column: 1/2;
-  z-index: 0;
-
-}
-
 .board {
   width: 100%;
   height: 100%;
 
-
   display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr 39.5rem 1fr;
 
-  grid-template-columns: 1;
-  grid-template-rows: 10% 1fr;
+  grid-template-rows: 1fr 36.5rem 1fr;
 
-  border-radius: 1rem;
+  .front-board {
+
+    z-index: 2;
+    grid-row: 2/3;
+    grid-column: 2/3;
+    //width: 100%;
+    height: 100%;
+  }
+
+  .back-board {
+    grid-row: 2/3;
+    grid-column: 2/3;
+    z-index: 0;
+
+    //width: 100%;
+    height: 100%;
+
+  }
 
   .inner-board {
-
-    grid-column: 1/2;
-    //aspect-ratio: 1/1;
+    width: calc(39.5rem - 2.5rem);
+    height: calc(36.5rem - 3.75rem);
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    z-index: 1;
+    grid-column: 2/3;
     grid-row: 2/3;
-    margin: 0.9 1.1rem;
-    margin-bottom: 4rem;
+
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     align-items: center;
     justify-content: center;
 
-    gap: 0 1rem;
 
     img {
       z-index: 1;
-      object-position: 50% 50%;
-      //width: 100%;
+      width: 4rem;
+      aspect-ratio: 1/1;
 
+      border: 1px solid green;
+      object-position: 50% 50%;
+
+      object-fit: contain;
 
       transition: all 1s ease-in-out;
 
@@ -170,17 +171,6 @@ onBeforeUnmount(
 }
 
 
-header {
-  z-index: 2;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1rem;
-  background-color: #f0f0f0;
-  border-radius: 1rem;
-  height: 5vh;
-}
 
 footer {
   width: 100%;
@@ -193,7 +183,7 @@ footer {
 
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-
+  grid-column: 2/3;
   align-items: center;
   justify-content: center;
 
@@ -215,20 +205,20 @@ footer {
   }
 }
 
+
+
 main {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 50% 1fr;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 90vh;
+  margin-top: 10vh;
+  background-color: var(--purple);
 
 
-
-  section {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    padding: 1rem;
-  }
 
 }
 </style>

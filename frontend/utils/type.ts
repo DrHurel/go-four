@@ -1,4 +1,4 @@
 
-export type FactoryReturn<T> = (e: T) => void | Promise<void>
-export type Factory<O, T> = (options: O) => FactoryReturn<T>
+export type FactoryReturn<T, R> = (e: T) => R | Promise<R>
+export type Factory<O, T, R> = (options: O) => FactoryReturn<T, R>
 
