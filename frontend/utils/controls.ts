@@ -47,32 +47,38 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
 }
 
 
+/**
+ * The `factoryCallEventOffline` function takes in options and returns an event handler function that
+ * updates the cursor and player values based on keyboard input.
+ * @param options - An object containing the following properties:
+ * @param options.cursor - The `cursor` property is a ref object that contains the current cursor position.
+ * @param options.addToCollum - The `addToCollum` property is a function that adds a new piece to the game board.
+ * @param options.player - The `player` property is a ref object that contains the current player.
+ * 
+ * @returns The function being returned is an event handler function.
+ */
 export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void> = (options) => {
 
   const { cursor, addToCollum, player } = options
 
-  return function callEvent(e) {
+  return (e) => {
 
 
     if (e.code == Controls.RIGHT) {
       if (cursor.value < 6) cursor.value++
 
-      return
     }
     if (e.code == Controls.LEFT) {
       if (cursor.value > 0) cursor.value--
     }
+
     if (e.code == Controls.SPACE) {
       const play = addToCollum({ a: cursor.value, b: player.value })
       if (play != PlayImpact.UNAUTHORIZED) {
         player.value = - player.value
       }
 
-      return
     }
-
-
-
 
 
   }

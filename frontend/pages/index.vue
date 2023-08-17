@@ -15,10 +15,9 @@
       <form>
         <button class="bot">Play Bot</button>
       </form>
-      <form>
-        <button class="rules">Rules</button>
-      </form>
 
+
+      <NuxtLink to="/connect-four/rules"> <button class="rules">Rules</button></NuxtLink>
     </main>
   </div>
 </template>
@@ -75,7 +74,7 @@ main {
   background-color: var(--purple);
   display: flex;
   flex-direction: column;
-  width: 30%;
+  height: 50%;
   border-radius: 10%;
   border: 3px solid black;
   box-shadow: 0px 10px 0px 0px #000;
@@ -115,6 +114,14 @@ button {
 }
 
 form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+a {
   width: 100%;
   display: flex;
   justify-content: center;

@@ -16,7 +16,7 @@ export const factoryADDTo: Factory<AddToOptions, optionRes, PlayImpact> = (optio
 
   const { board, player } = options;
 
-  return ((o: optionRes) => {
+  return ((o) => {
 
     const { a, b } = o;
 
