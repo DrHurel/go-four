@@ -15,13 +15,13 @@
         <span :style="{
               transform: `translateX(calc(${cursor} * 100%))`
             }">
-          <img v-bind:src="player == -1 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
+          <img v-bind:src="player == 1 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
         </span>
       </div>
       <img class="front-board" src="/images/board-layer-white-large.svg" alt="" />
       <div class="inner-board">
         <img v-for="( item, _ ) in   board  " :class="{ clean: (item == 0) }"
-          v-bind:src="(item == -1) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
+          v-bind:src="(item == 1) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
       </div>
       <img class="back-board" src="/images/board-layer-black-large.svg" alt="" />
     </section>
