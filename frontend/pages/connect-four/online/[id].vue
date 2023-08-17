@@ -15,13 +15,13 @@
         <span :style="{
               transform: `translateX(calc(${cursor} * 100%))`
             }">
-          <img v-bind:src="player == 1 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
+          <img v-bind:src="player == Player.PLAYER2 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
         </span>
       </div>
       <img class="front-board" src="/images/board-layer-white-large.svg" alt="" />
       <div class="inner-board">
         <img v-for="( item, _ ) in   board  " :class="{ clean: (item == 0) }"
-          v-bind:src="(item == 1) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
+          v-bind:src="(item == Player.PLAYER2) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
       </div>
       <img class="back-board" src="/images/board-layer-black-large.svg" alt="" />
     </section>
@@ -48,14 +48,14 @@ const ws: { handler: null | WebSocket } = { handler: null }
 
 const board = ref(new Array(42).fill(0));
 const cursor = ref(0)
-const player = useState("player", () => -1)
+const player = useState("player", () => Player.PLAYER1)
 const score = useState('score', () => [0, 0]);
 const canPlay = ref(true)
 const route = useRoute();
 
 // functions
 const addToCollum = factoryADDTo({ board, player })
-const callEvent = factoryCallEvent({ ws, cursor, canPlay, addToCollum, player })
+const callEvent = factoryCallEvent({ ws, cursor, canPlay, addToCollum, player, score })
 
 onMounted(() => {
 
@@ -69,7 +69,7 @@ onMounted(() => {
     ws.handler?.send('join room');
   };
 
-  ws.handler.onmessage = factoryOnMessage({ board, searchOpponent, ws, canPlay, player, cursor, addToCollum })
+  ws.handler.onmessage = factoryOnMessage({ board, searchOpponent, ws, canPlay, player, cursor, addToCollum, score })
 
   ws.handler.onclose = (e) => {
     console.log(e);

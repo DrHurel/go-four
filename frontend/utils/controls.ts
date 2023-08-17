@@ -33,9 +33,9 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
         ws.handler?.send(Action.LEFT)
       }
       if (e.code == Controls.SPACE) {
-        if (canPlay.value) if (addToCollum({ a: cursor.value, b: player.value }) != PlayImpact.UNAUTHORIZED) {
+        if (addToCollum({ a: cursor.value, b: player.value }) != PlayImpact.UNAUTHORIZED) {
           canPlay.value = false
-          player.value = - player.value
+          player.value = (player.value == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1)
           ws.handler?.send(Action.SPACE)
         }
         return
@@ -60,7 +60,7 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
  */
 export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void> = (options) => {
 
-  const { cursor, addToCollum, player, canPlay } = options
+  const { cursor, addToCollum, player, canPlay, score } = options
 
   return (e) => {
 
@@ -77,12 +77,13 @@ export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void
     if (e.code == Controls.SPACE) {
       const play = addToCollum({ a: cursor.value, b: player.value })
       if (play == PlayImpact.NONE) {
-        player.value = - player.value
+        player.value = (player.value == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1)
       }
 
       if (play == PlayImpact.WIN) {
         console.log("vous avez gagné")
         canPlay.value = false
+        score.value[player.value == Player.PLAYER1 ? 0 : 1]++
         setTimeout(() => {
           alert("vous avez gagné" + player.value)
         }, 1000)

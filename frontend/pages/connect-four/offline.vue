@@ -3,31 +3,36 @@
 
   <main>
 
-    <section class="P1">
-      <div class="player">player 1</div>
-      <div class="score">{{
-        score[0]
-      }}</div>
+    <section class="p-info">
+      <div class="score-container">
+        <p class="player">player 1</p>
+        <p class="score">{{
+          score[0]
+        }}</p>
+      </div>
     </section>
     <section class="board">
       <div class="cursor">
         <span :style="{
               transform: `translateX(calc(${cursor} * 100%))`
             }">
-          <img v-bind:src="player == 1 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
+          <img v-bind:src="player == Player.PLAYER2 ? '/images/marker-yellow.svg' : '/images/marker-red.svg'" />
         </span>
       </div>
       <img class="front-board" src="/images/board-layer-white-large.svg" alt="" />
       <div class="inner-board">
         <img v-for="(item, _) in  board " :class="{ clean: (item == 0) }"
-          v-bind:src="(item == 1) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
+          v-bind:src="(item == Player.PLAYER2) ? '/images/counter-yellow-large.svg' : '/images/counter-red-large.svg'" />
       </div>
       <img class="back-board" src="/images/board-layer-black-large.svg" alt="" />
+      <button @click="newgame">restart</button>
     </section>
-    <section class="P2">
-      <div class="player">player 2</div>
-      <div class="score">
-        {{ score[1] }}
+    <section class="p-info">
+      <div class="score-container">
+        <p class="player">player 2</p>
+        <p class="score">{{
+          score[1]
+        }}</p>
       </div>
     </section>
 
@@ -45,14 +50,16 @@
 
 const board = ref(new Array(42).fill(0));
 const cursor = ref(0)
-const player = useState("player", () => -1)
-const score = useState('score', () => [0, 0]);
+const player = ref(Player.PLAYER1)
+const score = ref([0, 0]); //useState('score', () => [0, 0]);
 const canPlay = ref(true)
 
 
 // functions
 const addToCollum = factoryADDTo({ board, player })
-const callEvent = factoryCallEventOffline({ cursor, addToCollum, player, canPlay })
+const callEvent = factoryCallEventOffline({ cursor, addToCollum, player, canPlay, score })
+const newgame = FactoryNewGameOffline({ board, player, canPlay, score })
+
 
 onMounted(() => {
   if (typeof window != 'undefined') window.addEventListener("keydown", callEvent)
@@ -147,6 +154,27 @@ onBeforeUnmount(
   }
 }
 
+.p-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-container {
+
+  background-color: white;
+  border-radius: 2rem;
+  width: 50%;
+  aspect-ratio: 1/1.5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid black;
+  box-shadow: 0px 10px 0px 0px #000;
+}
 
 
 footer {

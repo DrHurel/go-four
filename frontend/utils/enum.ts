@@ -32,3 +32,8 @@ export enum PlayImpact {
   NONE,
   UNAUTHORIZED
 }
+
+export enum Player {
+  PLAYER1 = 1,
+  PLAYER2 = -1,
+}
