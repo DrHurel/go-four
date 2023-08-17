@@ -4,9 +4,8 @@
 
     <main>
 
-      <section>
-        <h1>Rules</h1>
-      </section>
+      <h1>Rules</h1>
+
       <section>
         <h2>OBJECTIVE</h2>
         <p>Be the first player to connect 4 of the same colored discs in a row (either vertically, horizontally, or

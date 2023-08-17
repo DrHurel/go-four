@@ -10,7 +10,6 @@ export interface optionRes { a: number, b: number }
 
 export interface CallEventOptions extends CallEventOfflineOptions {
   ws: { handler: WebSocket | null }
-  canPlay: globalThis.Ref<boolean>
 
 }
 
@@ -18,6 +17,7 @@ export interface CallEventOfflineOptions {
   cursor: globalThis.Ref<number>
   addToCollum: (o: optionRes) => PlayImpact | Promise<PlayImpact>
   player: globalThis.Ref<number>
+  canPlay: globalThis.Ref<boolean>
 
 }
 

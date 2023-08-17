@@ -1,3 +1,4 @@
+import { time } from "console"
 import { Controls, Action } from "./enum"
 import { CallEventOfflineOptions, CallEventOptions } from "./interface"
 import { Factory } from "./type"
@@ -59,10 +60,11 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
  */
 export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void> = (options) => {
 
-  const { cursor, addToCollum, player } = options
+  const { cursor, addToCollum, player, canPlay } = options
 
   return (e) => {
 
+    if (!canPlay.value) return
 
     if (e.code == Controls.RIGHT) {
       if (cursor.value < 6) cursor.value++
@@ -74,8 +76,16 @@ export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void
 
     if (e.code == Controls.SPACE) {
       const play = addToCollum({ a: cursor.value, b: player.value })
-      if (play != PlayImpact.UNAUTHORIZED) {
+      if (play == PlayImpact.NONE) {
         player.value = - player.value
+      }
+
+      if (play == PlayImpact.WIN) {
+        console.log("vous avez gagné")
+        canPlay.value = false
+        setTimeout(() => {
+          alert("vous avez gagné" + player.value)
+        }, 1000)
       }
 
     }

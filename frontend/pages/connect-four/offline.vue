@@ -47,12 +47,12 @@ const board = ref(new Array(42).fill(0));
 const cursor = ref(0)
 const player = useState("player", () => -1)
 const score = useState('score', () => [0, 0]);
-
+const canPlay = ref(true)
 
 
 // functions
 const addToCollum = factoryADDTo({ board, player })
-const callEvent = factoryCallEventOffline({ cursor, addToCollum, player })
+const callEvent = factoryCallEventOffline({ cursor, addToCollum, player, canPlay })
 
 onMounted(() => {
   if (typeof window != 'undefined') window.addEventListener("keydown", callEvent)
