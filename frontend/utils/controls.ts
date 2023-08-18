@@ -60,21 +60,24 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
  */
 export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void> = (options) => {
 
-  const { cursor, addToCollum, player, canPlay, score } = options
+  const { cursor, addToCollum, player, canPlay, score, isPlaying } = options
 
   return (e) => {
 
     if (!canPlay.value) return
 
     if (e.code == Controls.RIGHT) {
+      if (!isPlaying.value) isPlaying.value = true
       if (cursor.value < 6) cursor.value++
 
     }
     if (e.code == Controls.LEFT) {
+      if (!isPlaying.value) isPlaying.value = true
       if (cursor.value > 0) cursor.value--
     }
 
     if (e.code == Controls.SPACE) {
+      if (!isPlaying.value) isPlaying.value = true
       const play = addToCollum({ a: cursor.value, b: player.value })
       if (play == PlayImpact.NONE) {
         player.value = (player.value == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1)
@@ -84,6 +87,7 @@ export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void
         console.log("vous avez gagné")
         canPlay.value = false
         score.value[player.value == Player.PLAYER1 ? 0 : 1]++
+        if (isPlaying.value) isPlaying.value = false
         setTimeout(() => {
           alert("vous avez gagné" + player.value)
         }, 1000)

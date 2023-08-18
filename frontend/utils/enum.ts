@@ -34,6 +34,7 @@ export enum PlayImpact {
 }
 
 export enum Player {
+  EMPTY = 0,
   PLAYER1 = 1,
   PLAYER2 = -1,
 }

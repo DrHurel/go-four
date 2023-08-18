@@ -14,7 +14,7 @@ import { PlayImpact } from "./enum";
  */
 export const factoryADDTo: Factory<AddToOptions, optionRes, PlayImpact> = (options) => {
 
-  const { board, player } = options;
+  const { board, player, timer, timerInterval } = options;
 
   return ((o) => {
 
@@ -30,7 +30,7 @@ export const factoryADDTo: Factory<AddToOptions, optionRes, PlayImpact> = (optio
       return PlayImpact.UNAUTHORIZED
     }
 
-
+    timer.value = timerInterval.value
     board.value[a + row * 7] = parseInt((JSON.stringify(b)))
 
 

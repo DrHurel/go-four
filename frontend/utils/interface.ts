@@ -1,8 +1,10 @@
-import { PlayImpact } from "./enum";
+import { PlayImpact, Player } from "./enum";
 
 export interface AddToOptions {
   board: globalThis.Ref<number[]>;
   player: globalThis.Ref<number>;
+  timer: globalThis.Ref<number>;
+  timerInterval: globalThis.Ref<number>;
 
 }
 
@@ -20,6 +22,7 @@ export interface CallEventOfflineOptions {
   player: globalThis.Ref<number>
   canPlay: globalThis.Ref<boolean>
   score: globalThis.Ref<number[]>
+  isPlaying: globalThis.Ref<boolean>
 
 }
 
@@ -35,4 +38,17 @@ export interface RoundTimerOptions {
   timer: globalThis.Ref<number>;
   timerInterval: globalThis.Ref<number>;
   player: globalThis.Ref<number>
+  score: globalThis.Ref<number[]>
+  canPlay: globalThis.Ref<boolean>
+  isPlaying: globalThis.Ref<boolean>
+
+}
+
+
+export interface NewGameOfflineOptions {
+  score: globalThis.Ref<number[]>
+  player: globalThis.Ref<Player>
+  board: globalThis.Ref<Array<number>>
+  canPlay: globalThis.Ref<boolean>
+
 }

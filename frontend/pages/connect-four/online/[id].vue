@@ -52,10 +52,13 @@ const player = useState("player", () => Player.PLAYER1)
 const score = useState('score', () => [0, 0]);
 const canPlay = ref(true)
 const route = useRoute();
+const isPlaying = ref(false)
+const timer = ref(15)
+const timerInterval = ref(15)
 
 // functions
-const addToCollum = factoryADDTo({ board, player })
-const callEvent = factoryCallEvent({ ws, cursor, canPlay, addToCollum, player, score })
+const addToCollum = factoryADDTo({ board, player ,timer,timerInterval })
+const callEvent = factoryCallEvent({ ws, cursor, canPlay, addToCollum, player, score, isPlaying })
 
 onMounted(() => {
 
@@ -69,7 +72,7 @@ onMounted(() => {
     ws.handler?.send('join room');
   };
 
-  ws.handler.onmessage = factoryOnMessage({ board, searchOpponent, ws, canPlay, player, cursor, addToCollum, score })
+  ws.handler.onmessage = factoryOnMessage({ board, searchOpponent, ws, canPlay, player, cursor, addToCollum, score, isPlaying })
 
   ws.handler.onclose = (e) => {
     console.log(e);
