@@ -1,5 +1,4 @@
-import { time } from "console"
-import { Controls, Action } from "./enum"
+import { Controls, Action, PlayImpact } from "./enum"
 import { CallEventOfflineOptions, CallEventOptions } from "./interface"
 import { Factory } from "./type"
 
@@ -33,10 +32,18 @@ export const factoryCallEvent: Factory<CallEventOptions, any, void> = (options) 
         ws.handler?.send(Action.LEFT)
       }
       if (e.code == Controls.SPACE) {
-        if (addToCollum({ a: cursor.value, b: player.value }) != PlayImpact.UNAUTHORIZED) {
+        const play = addToCollum({ a: cursor.value, b: player.value })
+        if (play != PlayImpact.UNAUTHORIZED) {
           canPlay.value = false
           player.value = (player.value == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1)
           ws.handler?.send(Action.SPACE)
+
+          if (play == PlayImpact.WIN) {
+            console.log("vous avez gagné")
+            setTimeout(() => {
+              alert("vous avez gagné" + player.value)
+            }, 1000)
+          }
         }
         return
       }
@@ -66,36 +73,53 @@ export const factoryCallEventOffline: Factory<CallEventOfflineOptions, any, void
 
     if (!canPlay.value) return
 
-    if (e.code == Controls.RIGHT) {
-      if (!isPlaying.value) isPlaying.value = true
-      if (cursor.value < 6) cursor.value++
 
+    switch (e.code) {
+      case Controls.RIGHT:
+        NotAfk(isPlaying)
+        mouveCursor(Controls.RIGHT, cursor)
+        break;
+      case Controls.LEFT:
+        NotAfk(isPlaying)
+        mouveCursor(Controls.LEFT, cursor)
+        break;
+      case Controls.SPACE:
+
+        NotAfk(isPlaying)
+        const play = addToCollum({ a: cursor.value, b: player.value })
+        if (play == PlayImpact.NONE) {
+          player.value = (player.value == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1)
+        }
+        if (play == PlayImpact.WIN) {
+          console.log("vous avez gagné")
+          canPlay.value = false
+          score.value[player.value == Player.PLAYER1 ? 0 : 1]++
+          if (isPlaying.value) isPlaying.value = false
+          setTimeout(() => {
+            alert("vous avez gagné" + player.value)
+          }, 1000)
+        }
+
+        break;
+
+      default:
+        break;
     }
-    if (e.code == Controls.LEFT) {
-      if (!isPlaying.value) isPlaying.value = true
-      if (cursor.value > 0) cursor.value--
-    }
-
-    if (e.code == Controls.SPACE) {
-      if (!isPlaying.value) isPlaying.value = true
-      const play = addToCollum({ a: cursor.value, b: player.value })
-      if (play == PlayImpact.NONE) {
-        player.value = (player.value == Player.PLAYER1 ? Player.PLAYER2 : Player.PLAYER1)
-      }
-
-      if (play == PlayImpact.WIN) {
-        console.log("vous avez gagné")
-        canPlay.value = false
-        score.value[player.value == Player.PLAYER1 ? 0 : 1]++
-        if (isPlaying.value) isPlaying.value = false
-        setTimeout(() => {
-          alert("vous avez gagné" + player.value)
-        }, 1000)
-      }
-
-    }
-
-
   }
 
 }
+
+function mouveCursor(direction: Controls, cursor: { value: number }) {
+  switch (direction) {
+    case Controls.RIGHT:
+      if (cursor.value < 6) cursor.value++
+      break;
+    case Controls.LEFT:
+      if (cursor.value > 0) cursor.value--
+      break;
+    default:
+      break;
+  }
+}
+
+const NotAfk = (isPlaying: { value: boolean }) => isPlaying.value = true

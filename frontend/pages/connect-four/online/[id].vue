@@ -57,7 +57,7 @@ const timer = ref(15)
 const timerInterval = ref(15)
 
 // functions
-const addToCollum = factoryADDTo({ board, player ,timer,timerInterval })
+const addToCollum = factoryADDTo({ board, player, timer, timerInterval })
 const callEvent = factoryCallEvent({ ws, cursor, canPlay, addToCollum, player, score, isPlaying })
 
 onMounted(() => {

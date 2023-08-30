@@ -1,4 +1,4 @@
-import { Action } from "./enum";
+import { Action, PlayImpact } from "./enum";
 import { OnMessageOptions } from "./interface";
 import { Factory } from "./type";
 
@@ -72,9 +72,19 @@ export const factoryOnMessage: Factory<OnMessageOptions, { data: string; }, void
     }
 
     if (e.data === Action.SPACE) {
-      addToCollum({ a: cursor.value, b: player.value })
+      const play = addToCollum({ a: cursor.value, b: player.value })
       canPlay.value = !canPlay.value
-      player.value = -player.value
+      if (play == PlayImpact.NONE) {
+        player.value = -player.value
+      }
+      if (play == PlayImpact.WIN) {
+        console.log("vous avez gagné")
+        setTimeout(() => {
+          alert("Player " + player.value + " a gagné")
+        }, 1000)
+      }
+
+
       return
     }
 

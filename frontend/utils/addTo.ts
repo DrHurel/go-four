@@ -20,21 +20,22 @@ export const factoryADDTo: Factory<AddToOptions, optionRes, PlayImpact> = (optio
 
     const { a, b } = o;
 
+    if (board.value[a] != 0) {
+      return PlayImpact.UNAUTHORIZED
+    }
+
+
     let row = 5;
     while (board.value[a + row * 7] != 0 && row > 0) {
       row--;
     }
 
-    if (row == 0 && board.value[a + row * 7] != 0) {
-
-      return PlayImpact.UNAUTHORIZED
-    }
 
     timer.value = timerInterval.value
     board.value[a + row * 7] = parseInt((JSON.stringify(b)))
 
 
-    let test = isWinningMove(parseInt((JSON.stringify(b))), board, { x: row, y: a })
+    const test = isWinningMove(parseInt((JSON.stringify(b))), board, { x: row, y: a })
     if (test) {
       console.log("le joueur" + player.value + " a gagné " + test)
       console.log(a, row, board.value[a + row * 7])
